@@ -67,6 +67,15 @@ curl http://127.0.0.1:8899/api/openai/prices.json
 For offline builds, pass `--source /path/to/pricing.md`. Use `--output /path/to/site`
 to change the output directory. Generated files in `_site/` are ignored by Git.
 
+Verify the live deployment, including JSON content types, CORS, snapshot freshness,
+and all legacy GET paths:
+
+```bash
+python3 scripts/check_published_api.py
+```
+
+Pass `--base-url https://your-host/base-path` to check another deployment.
+
 The original Python server remains available for local integrations requiring
 on-demand refreshes:
 
