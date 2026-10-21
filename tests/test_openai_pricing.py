@@ -42,8 +42,38 @@ Standard
 | gpt-5.4-mini | $0.75 | $0.075 | - | $4.50 | - | - | - | - |
 """
 
+SAMPLE_SPLIT_TABLE_PRICING_MARKDOWN = """
+### Standard pricing data
+
+| Model | Short context input | Short context output | Short context cached input | Short context 30m write | Short context 12h write | Long context input | Long context output |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| gpt-6.1-sol | $2.00 | $10.00 | $0.10 | $2.50 | $5.00 | $4.00 | $15.00 |
+| gpt-5.5 | $5.00 | $30.00 | $0.50 | - | - | $10.00 | $45.00 |
+
+| Model | Input | Output | Cached input |
+| --- | --- | --- | --- |
+| gpt-5.4-mini | $0.75 | $4.50 | $0.075 |
+
+### Batch pricing data
+
+| Model | Input | Output | Cached input |
+| --- | --- | --- | --- |
+| gpt-5.4-mini | $0.375 | $2.25 | $0.0375 |
+"""
+
 
 class OpenAIPricingTests(unittest.TestCase):
+    def test_parse_split_standard_tables_without_batch_or_long_context_rates(self) -> None:
+        prices = parse_openai_pricing_markdown(SAMPLE_SPLIT_TABLE_PRICING_MARKDOWN)
+
+        self.assertEqual([price.model_id for price in prices], ["gpt-6.1-sol", "gpt-5.5", "gpt-5.4-mini"])
+        self.assertEqual(prices[0].input_usd_per_1m_tokens, Decimal("2.00"))
+        self.assertEqual(prices[0].output_usd_per_1m_tokens, Decimal("10.00"))
+        self.assertEqual(prices[0].cache_write_usd_per_1m_tokens, Decimal("2.50"))
+        self.assertEqual(prices[-1].output_usd_per_1m_tokens, Decimal("4.50"))
+        self.assertEqual(prices[-1].cached_input_usd_per_1m_tokens, Decimal("0.075"))
+        self.assertIsNone(prices[-1].cache_write_usd_per_1m_tokens)
+
     def test_parse_openai_pricing_markdown_extracts_fallback_rows(self) -> None:
         prices = parse_openai_pricing_markdown(SAMPLE_PRICING_MARKDOWN)
 

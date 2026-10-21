@@ -62,7 +62,7 @@ def split_markdown_table_row(line: str) -> list[str]:
     return [cell.strip() for cell in stripped.strip("|").split("|")]
 
 
-def extract_standard_pricing_table_rows(markdown_text: str) -> list[list[str]]:
+def extract_standard_pricing_tables(markdown_text: str) -> list[list[list[str]]]:
     lines = markdown_text.splitlines()
     table_start = -1
     for index, line in enumerate(lines):
@@ -72,62 +72,76 @@ def extract_standard_pricing_table_rows(markdown_text: str) -> list[list[str]]:
     if table_start < 0:
         raise OpenAIPricingError("Could not find the standard pricing table in OpenAI pricing markdown.")
 
+    tables: list[list[list[str]]] = []
     rows: list[list[str]] = []
     for line in lines[table_start + 1:]:
         stripped = normalize_text(line)
-        if not stripped:
-            if rows:
-                break
-            continue
+        if re.match(r"^#{1,3}\s", stripped):
+            break
         cells = split_markdown_table_row(stripped)
-        if not cells:
-            if rows:
-                break
-            continue
-        rows.append(cells)
-    if len(rows) < 3:
+        if cells:
+            rows.append(cells)
+        elif rows:
+            tables.append(rows)
+            rows = []
+    if rows:
+        tables.append(rows)
+    if not tables or any(len(table) < 3 for table in tables):
         raise OpenAIPricingError("OpenAI standard pricing markdown table is missing rows.")
-    return rows
+    return tables
+
+
+def extract_standard_pricing_table_rows(markdown_text: str) -> list[list[str]]:
+    return extract_standard_pricing_tables(markdown_text)[0]
 
 
 def parse_standard_pricing_table(markdown_text: str) -> list[OpenAIModelPrice]:
-    rows = extract_standard_pricing_table_rows(markdown_text)
-    header = [cell.lower() for cell in rows[0]]
-    data_rows = rows[2:]
-
-    def header_index(label: str) -> int:
-        try:
-            return header.index(label)
-        except ValueError as exc:
-            raise OpenAIPricingError(f"OpenAI pricing table is missing '{label}'.") from exc
-
-    model_index = header_index("model")
-    input_index = header_index("short context input")
-    cached_input_index = header_index("short context cached input")
-    cache_write_index = header_index("short context cache writes")
-    output_index = header_index("short context output")
-
     prices: list[OpenAIModelPrice] = []
-    for row in data_rows:
-        if len(row) <= max(model_index, input_index, cached_input_index, cache_write_index, output_index):
-            continue
-        display_name = normalize_text(row[model_index])
-        model_id = normalize_model_id(display_name)
-        input_price = parse_decimal(row[input_index])
-        output_price = parse_decimal(row[output_index])
-        if not model_id or input_price is None or output_price is None:
-            continue
-        prices.append(
-            OpenAIModelPrice(
-                model_id=model_id,
-                display_name=display_name,
-                tier="standard",
-                input_usd_per_1m_tokens=input_price,
-                output_usd_per_1m_tokens=output_price,
-                cached_input_usd_per_1m_tokens=parse_decimal(row[cached_input_index]),
-                cache_write_usd_per_1m_tokens=parse_decimal(row[cache_write_index]),
-            )
+    for rows in extract_standard_pricing_tables(markdown_text):
+        header = [cell.lower() for cell in rows[0]]
+
+        def header_index(*labels: str, optional: bool = False) -> int | None:
+            for label in labels:
+                if label in header:
+                    return header.index(label)
+            if optional:
+                return None
+            raise OpenAIPricingError(f"OpenAI pricing table is missing '{labels[0]}'.")
+
+        model_index = header_index("model")
+        input_index = header_index("short context input", "input")
+        output_index = header_index("short context output", "output")
+        cached_input_index = header_index("short context cached input", "cached input")
+        cache_write_index = header_index(
+            "short context cache writes", "short context 30m write", optional=True,
         )
+        indices = [
+            index for index in (model_index, input_index, output_index, cached_input_index, cache_write_index)
+            if index is not None
+        ]
+
+        for row in rows[2:]:
+            if len(row) <= max(indices):
+                continue
+            display_name = normalize_text(row[model_index])
+            model_id = normalize_model_id(display_name)
+            input_price = parse_decimal(row[input_index])
+            output_price = parse_decimal(row[output_index])
+            if not model_id or input_price is None or output_price is None:
+                continue
+            prices.append(
+                OpenAIModelPrice(
+                    model_id=model_id,
+                    display_name=display_name,
+                    tier="standard",
+                    input_usd_per_1m_tokens=input_price,
+                    output_usd_per_1m_tokens=output_price,
+                    cached_input_usd_per_1m_tokens=parse_decimal(row[cached_input_index]),
+                    cache_write_usd_per_1m_tokens=(
+                        parse_decimal(row[cache_write_index]) if cache_write_index is not None else None
+                    ),
+                )
+            )
 
     if not prices:
         raise OpenAIPricingError("OpenAI standard pricing markdown table did not contain usable rows.")
