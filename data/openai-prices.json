@@ -6,7 +6,7 @@
   "unit": "per_1m_tokens",
   "sourceUrl": "https://developers.openai.com/api/docs/pricing.md",
   "fetched": false,
-  "fetchedAt": "2026-10-26T12:41:52.299949+00:00",
+  "fetchedAt": "2026-11-02T15:27:31.864042+00:00",
   "cacheTtlSeconds": 604800,
   "prices": [
     {
@@ -44,6 +44,24 @@
       "cache_write": 2.5,
       "cache_write_usd_per_1m": 2.5,
       "cacheWriteUsdPer1M": 2.5
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-6.1-terra",
+      "displayName": "gpt-6.1-terra",
+      "tier": "standard",
+      "input": 1.0,
+      "input_usd_per_1m": 1.0,
+      "inputUsdPer1M": 1.0,
+      "output": 5.0,
+      "output_usd_per_1m": 5.0,
+      "outputUsdPer1M": 5.0,
+      "cached_input": 0.05,
+      "cached_input_usd_per_1m": 0.05,
+      "cachedInputUsdPer1M": 0.05,
+      "cache_write": 1.25,
+      "cache_write_usd_per_1m": 1.25,
+      "cacheWriteUsdPer1M": 1.25
     },
     {
       "provider": "openai",
@@ -550,6 +568,12 @@
       "cached_input": 0.1,
       "cache_write": 2.5,
       "output": 10.0
+    },
+    "gpt-6.1-terra": {
+      "input": 1.0,
+      "cached_input": 0.05,
+      "cache_write": 1.25,
+      "output": 5.0
     },
     "gpt-6-luna": {
       "input": 0.1,
