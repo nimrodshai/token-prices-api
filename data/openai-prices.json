@@ -6,7 +6,7 @@
   "unit": "per_1m_tokens",
   "sourceUrl": "https://developers.openai.com/api/docs/pricing.md",
   "fetched": false,
-  "fetchedAt": "2026-11-02T15:27:31.864042+00:00",
+  "fetchedAt": "2026-11-09T15:53:30.744370+00:00",
   "cacheTtlSeconds": 604800,
   "prices": [
     {
@@ -368,21 +368,6 @@
     },
     {
       "provider": "openai",
-      "model": "gpt-4.1-nano",
-      "displayName": "gpt-4.1-nano",
-      "tier": "standard",
-      "input": 0.1,
-      "input_usd_per_1m": 0.1,
-      "inputUsdPer1M": 0.1,
-      "output": 0.4,
-      "output_usd_per_1m": 0.4,
-      "outputUsdPer1M": 0.4,
-      "cached_input": 0.025,
-      "cached_input_usd_per_1m": 0.025,
-      "cachedInputUsdPer1M": 0.025
-    },
-    {
-      "provider": "openai",
       "model": "gpt-4o",
       "displayName": "gpt-4o",
       "tier": "standard",
@@ -398,18 +383,6 @@
     },
     {
       "provider": "openai",
-      "model": "gpt-4o-2024-05-13",
-      "displayName": "gpt-4o-2024-05-13",
-      "tier": "standard",
-      "input": 5.0,
-      "input_usd_per_1m": 5.0,
-      "inputUsdPer1M": 5.0,
-      "output": 15.0,
-      "output_usd_per_1m": 15.0,
-      "outputUsdPer1M": 15.0
-    },
-    {
-      "provider": "openai",
       "model": "gpt-4o-mini",
       "displayName": "gpt-4o-mini",
       "tier": "standard",
@@ -422,33 +395,6 @@
       "cached_input": 0.075,
       "cached_input_usd_per_1m": 0.075,
       "cachedInputUsdPer1M": 0.075
-    },
-    {
-      "provider": "openai",
-      "model": "o1",
-      "displayName": "o1",
-      "tier": "standard",
-      "input": 15.0,
-      "input_usd_per_1m": 15.0,
-      "inputUsdPer1M": 15.0,
-      "output": 60.0,
-      "output_usd_per_1m": 60.0,
-      "outputUsdPer1M": 60.0,
-      "cached_input": 7.5,
-      "cached_input_usd_per_1m": 7.5,
-      "cachedInputUsdPer1M": 7.5
-    },
-    {
-      "provider": "openai",
-      "model": "o1-pro",
-      "displayName": "o1-pro",
-      "tier": "standard",
-      "input": 150.0,
-      "input_usd_per_1m": 150.0,
-      "inputUsdPer1M": 150.0,
-      "output": 600.0,
-      "output_usd_per_1m": 600.0,
-      "outputUsdPer1M": 600.0
     },
     {
       "provider": "openai",
@@ -476,84 +422,6 @@
       "cached_input": 0.5,
       "cached_input_usd_per_1m": 0.5,
       "cachedInputUsdPer1M": 0.5
-    },
-    {
-      "provider": "openai",
-      "model": "o4-mini",
-      "displayName": "o4-mini",
-      "tier": "standard",
-      "input": 1.1,
-      "input_usd_per_1m": 1.1,
-      "inputUsdPer1M": 1.1,
-      "output": 4.4,
-      "output_usd_per_1m": 4.4,
-      "outputUsdPer1M": 4.4,
-      "cached_input": 0.275,
-      "cached_input_usd_per_1m": 0.275,
-      "cachedInputUsdPer1M": 0.275
-    },
-    {
-      "provider": "openai",
-      "model": "o3-mini",
-      "displayName": "o3-mini",
-      "tier": "standard",
-      "input": 1.1,
-      "input_usd_per_1m": 1.1,
-      "inputUsdPer1M": 1.1,
-      "output": 4.4,
-      "output_usd_per_1m": 4.4,
-      "outputUsdPer1M": 4.4,
-      "cached_input": 0.55,
-      "cached_input_usd_per_1m": 0.55,
-      "cachedInputUsdPer1M": 0.55
-    },
-    {
-      "provider": "openai",
-      "model": "gpt-4-turbo-2024-04-09",
-      "displayName": "gpt-4-turbo-2024-04-09",
-      "tier": "standard",
-      "input": 10.0,
-      "input_usd_per_1m": 10.0,
-      "inputUsdPer1M": 10.0,
-      "output": 30.0,
-      "output_usd_per_1m": 30.0,
-      "outputUsdPer1M": 30.0
-    },
-    {
-      "provider": "openai",
-      "model": "gpt-4-0613",
-      "displayName": "gpt-4-0613",
-      "tier": "standard",
-      "input": 30.0,
-      "input_usd_per_1m": 30.0,
-      "inputUsdPer1M": 30.0,
-      "output": 60.0,
-      "output_usd_per_1m": 60.0,
-      "outputUsdPer1M": 60.0
-    },
-    {
-      "provider": "openai",
-      "model": "gpt-3.5-turbo",
-      "displayName": "gpt-3.5-turbo",
-      "tier": "standard",
-      "input": 0.5,
-      "input_usd_per_1m": 0.5,
-      "inputUsdPer1M": 0.5,
-      "output": 1.5,
-      "output_usd_per_1m": 1.5,
-      "outputUsdPer1M": 1.5
-    },
-    {
-      "provider": "openai",
-      "model": "gpt-3.5-turbo-0125",
-      "displayName": "gpt-3.5-turbo-0125",
-      "tier": "standard",
-      "input": 0.5,
-      "input_usd_per_1m": 0.5,
-      "inputUsdPer1M": 0.5,
-      "output": 1.5,
-      "output_usd_per_1m": 1.5,
-      "outputUsdPer1M": 1.5
     }
   ],
   "pricesByModel": {
@@ -695,41 +563,17 @@
       "cache_write": null,
       "output": 1.6
     },
-    "gpt-4.1-nano": {
-      "input": 0.1,
-      "cached_input": 0.025,
-      "cache_write": null,
-      "output": 0.4
-    },
     "gpt-4o": {
       "input": 2.5,
       "cached_input": 1.25,
       "cache_write": null,
       "output": 10.0
     },
-    "gpt-4o-2024-05-13": {
-      "input": 5.0,
-      "cached_input": null,
-      "cache_write": null,
-      "output": 15.0
-    },
     "gpt-4o-mini": {
       "input": 0.15,
       "cached_input": 0.075,
       "cache_write": null,
       "output": 0.6
-    },
-    "o1": {
-      "input": 15.0,
-      "cached_input": 7.5,
-      "cache_write": null,
-      "output": 60.0
-    },
-    "o1-pro": {
-      "input": 150.0,
-      "cached_input": null,
-      "cache_write": null,
-      "output": 600.0
     },
     "o3-pro": {
       "input": 20.0,
@@ -742,42 +586,6 @@
       "cached_input": 0.5,
       "cache_write": null,
       "output": 8.0
-    },
-    "o4-mini": {
-      "input": 1.1,
-      "cached_input": 0.275,
-      "cache_write": null,
-      "output": 4.4
-    },
-    "o3-mini": {
-      "input": 1.1,
-      "cached_input": 0.55,
-      "cache_write": null,
-      "output": 4.4
-    },
-    "gpt-4-turbo-2024-04-09": {
-      "input": 10.0,
-      "cached_input": null,
-      "cache_write": null,
-      "output": 30.0
-    },
-    "gpt-4-0613": {
-      "input": 30.0,
-      "cached_input": null,
-      "cache_write": null,
-      "output": 60.0
-    },
-    "gpt-3.5-turbo": {
-      "input": 0.5,
-      "cached_input": null,
-      "cache_write": null,
-      "output": 1.5
-    },
-    "gpt-3.5-turbo-0125": {
-      "input": 0.5,
-      "cached_input": null,
-      "cache_write": null,
-      "output": 1.5
     }
   }
 }
