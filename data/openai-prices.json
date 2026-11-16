@@ -6,7 +6,7 @@
   "unit": "per_1m_tokens",
   "sourceUrl": "https://developers.openai.com/api/docs/pricing.md",
   "fetched": false,
-  "fetchedAt": "2026-11-09T15:53:30.744370+00:00",
+  "fetchedAt": "2026-11-16T15:28:48.106560+00:00",
   "cacheTtlSeconds": 604800,
   "prices": [
     {
